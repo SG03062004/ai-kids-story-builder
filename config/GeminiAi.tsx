@@ -1,0 +1,34 @@
+const {GoogleGenerativeAI,HarmCategory,HarmBlockThreshold}=require("@google/generative-ai");
+
+const apiKey=process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const genAI=new GoogleGenerativeAI(apiKey);
+
+const model=genAI.getGenerativeModel({
+    model:"gemini-1.5-flash",
+});
+
+const generationConfig={
+    temperature:1,
+    topP:0.95,
+    topK:64,
+    maxOutputTokens:8192,
+    responseMimeType:'application/json'
+};
+
+export const chatSession=model.startChat({
+    generationConfig,
+    history:[
+        {
+            role:"user",
+            parts:[
+                {text:"create kids story on description for 5-8 Years kids, Educational story, and all images in Paper cut style: story of boy and Magic School, give me 5 chapter, With detailed image text prompt for each of chapter and image prompt for story cover book with story name,all in json format"}
+            ],
+        },
+        {
+            role:"model",
+            parts:[
+                {text:"```json\n{\n  \"title\": \"Leo and the Lumina Academy\",\n  \"chapters\": [\n    {\n      \"chapter_number\": 1,\n      \"chapter_title\": \"The Whispering Map\",\n      \"story\": \"Leo loved maps! He had maps of the world, maps of his town, even a map of his backyard. One rainy afternoon, while sorting through his grandfather's attic, he found a peculiar map. It wasn't like the others. This one whispered! 'Lumina Academy… Seek the shimmering star…' it hummed. Leo, wide-eyed, decided he had to find this mysterious Lumina Academy.\",\n      \"image_prompt\": \"Paper cut style illustration. Leo, a curious boy with bright red hair and freckles, stands in a dusty attic filled with boxes. He's holding a glowing, rolled-up map that seems to be emitting faint, shimmering light. Cobwebs and old toys surround him. Rain streaks down the attic window in the background. The style should be charming and slightly whimsical.\",\n      \"image_text\": \"Leo discovers a whispering map in his grandfather's attic.\"\n    },\n    {\n      \"chapter_number\": 2,\n      \"chapter_title\": \"The Shimmering Star Train\",\n      \"story\": \"Following the map's directions, Leo found himself at an old, overgrown train station he’d never seen before. A train pulled up, but it wasn't like any train he knew. This one was made of polished silver, adorned with twinkling lights that looked like captured stars! A conductor with a friendly smile waved him aboard. 'Welcome to the Shimmering Star Train, young explorer! Lumina Academy awaits!'\",\n      \"image_prompt\": \"Paper cut style illustration. An overgrown train station platform with wildflowers and vines. A silver train, radiating a soft, starlight glow, is stopped at the platform. The conductor, a kind-looking man with a striped uniform and a twinkle in his eye, is waving to Leo, who stands on the platform looking amazed. The sky is a twilight blue with twinkling paper cut stars.\",\n      \"image_text\": \"Leo boards the magical Shimmering Star Train.\"\n    },\n    {\n      \"chapter_number\": 3,\n      \"chapter_title\": \"The Learning Garden\",\n      \"story\": \"Lumina Academy was even more incredible than Leo imagined! One of his first classes was in the Learning Garden. Instead of desks, there were giant, talking sunflowers who taught about photosynthesis! Each plant taught different lessons. The roses taught about history and the lilies about languages. Leo learned that everything, even plants, had knowledge to share.\",\n      \"image_prompt\": \"Paper cut style illustration. A vibrant garden with oversized, cheerful sunflowers with faces. Leo is sitting cross-legged, listening attentively to one of the sunflowers as it tells a story. Other students are scattered around the garden, talking to roses (who are acting like historians in powdered wigs) and lilies (who have speech bubbles with different languages). The overall feeling is bright, colorful, and full of life.\",\n      \"image_text\": \"Learning about photosynthesis from talking sunflowers in the Learning Garden.\"\n    },\n    {\n      \"chapter_number\": 4,\n      \"chapter_title\": \"The Potion Puzzle\",\n      \"story\": \"In potion class, Leo and his classmates had to solve a puzzle to brew a 'Courage Concoction.' The recipe was written in riddles! They learned about teamwork and critical thinking as they deciphered the instructions. The riddles made them learn about the properties of each ingredient and to solve the puzzle they needed to collaborate and use their knowledge to succeed. With teamwork and a lot of giggling, they brewed a potion that smelled of sunshine and bravery!\",\n      \"image_prompt\": \"Paper cut style illustration. A potion classroom filled with bubbling beakers and colorful liquids. Leo and two other children are gathered around a table, looking at a scroll covered in riddles. They are pointing and whispering, working together to solve the puzzle. One child is carefully adding an ingredient to a potion. The background is filled with whimsical potion-making equipment.\",\n      \"image_text\": \"Working together to solve the Potion Puzzle and brew a Courage Concoction.\"\n    },\n    {\n      \"chapter_number\": 5,\n      \"chapter_title\": \"The Power of Curiosity\",\n      \"story\": \"Leo loved Lumina Academy! He learned so much, not just from books and lessons, but from exploring and asking questions. He realized that the most important magic of all was curiosity. When it was time to leave, the headmaster, a wise old owl, said, 'Never stop asking 'why,' Leo. The world is full of wonders waiting to be discovered!' Leo knew he would carry the magic of Lumina Academy in his heart forever. He went back home and decided to explore more and never stop learning new things.\",\n      \"image_prompt\": \"Paper cut style illustration. Leo is standing in front of Lumina Academy, a grand, whimsical building with towers and flags, waving goodbye. The headmaster, a wise-looking owl with spectacles, is smiling at him. The Shimmering Star Train waits in the background. Leo has a backpack filled with books and a big smile on his face. The overall scene should feel warm and nostalgic.\",\n      \"image_text\": \"Leo says goodbye to Lumina Academy, ready to explore the world with newfound curiosity.\"\n    }\n  ],\n  \"cover_image_prompt\": \"Paper cut style illustration. A magical school, Lumina Academy, is depicted with whimsical towers, glowing windows, and a starlit sky behind it. Leo, a young boy with red hair, stands in the foreground, looking up at the school with wide eyes and a sense of wonder. The title, 'Leo and the Lumina Academy,' is displayed prominently in a playful font. The style should be warm, inviting, and full of magical details.\"\n}\n```"}
+            ],
+        },
+    ],
+});
