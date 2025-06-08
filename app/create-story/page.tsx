@@ -11,12 +11,12 @@ import uuid4 from "uuid4";
 import { db } from "@/config/db";
 import { StoryData, Users } from "@/config/schema";
 import CustomLoader from "./_components/CustomLoader";
-import { GenerateImage } from "../api/generate-image/route";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useUser } from "@clerk/nextjs";
 import { UserDetailContext } from "../_context/UserDetailContext";
 import { eq } from "drizzle-orm";
+import { GenerateImage } from "@/lib/generateImage";
 
 const CREATE_STORY_PROMPT = process.env.NEXT_PUBLIC_CREATE_STORY_PROMPT;
 export interface fieldData {
