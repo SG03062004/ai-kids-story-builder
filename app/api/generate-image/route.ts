@@ -1,4 +1,4 @@
-// app/api/image-generator/route.ts
+// app/api/generate-image/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       },
       {
         headers: {
-          "x-api-key": process.env.AI_GURU_LAB_API,
+          "x-api-key": process.env.AI_GURU_LAB_API!,
           "Content-Type": "application/json",
         },
       }
@@ -36,20 +36,20 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
 export const GenerateImage = async (prompt: string) => {
-    const res = await fetch("/api/generate-image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt }),
-    });
-  
-    if (!res.ok) {
-      throw new Error("Image generation failed");
-    }
-  
-    const data = await res.json();
-    return data.image;
-  };
-  
+  const res = await fetch("/api/generate-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ prompt }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Image generation failed");
+  }
+
+  const data = await res.json();
+  return data.image;
+};
