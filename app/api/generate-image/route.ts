@@ -1,5 +1,3 @@
-// app/api/generate-image/route.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
@@ -37,6 +35,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
+
 export const GenerateImage = async (prompt: string) => {
   const res = await fetch("/api/generate-image", {
     method: "POST",
@@ -53,3 +52,4 @@ export const GenerateImage = async (prompt: string) => {
   const data = await res.json();
   return data.image;
 };
+
